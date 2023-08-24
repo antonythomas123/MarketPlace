@@ -1,8 +1,11 @@
 import React from 'react'
+import CustomAppBar from '../../components/CustomAppBar/CustomAppBar'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <CustomAppBar/>
+    </div>
   )
 }
 
