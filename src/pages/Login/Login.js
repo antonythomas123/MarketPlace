@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as Li } from "react-router-dom";
 import { Snackbar } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -43,7 +43,8 @@ export default function SignInSide() {
     ) {
       navigate("/home");
     } else {
-      setMessage("Invalid Username or Password !");
+      setMessage("Invalid Username or Password ! Create an account");
+      navigate('/signup')
       setOpen(true);
     }
   };
@@ -163,9 +164,9 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Li to={"/signup"}>
                     {"Don't have an account? Sign Up"}
-                  </Link>
+                  </Li>
                 </Grid>
               </Grid>
             </Box>
