@@ -9,7 +9,6 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
@@ -18,6 +17,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Avatar } from '@mui/material';
 import Logo from '../../assets/marketplace.png'
 import StoreIcon from '@mui/icons-material/Store';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -137,10 +137,10 @@ export default function CustomAppBar() {
           color="inherit"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <LocalGroceryStoreIcon/>
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>Cart</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -200,7 +200,7 @@ export default function CustomAppBar() {
               color="inherit"
             >
               <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+                <LocalGroceryStoreIcon />
               </Badge>
             </IconButton>
             <IconButton
