@@ -14,15 +14,16 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, Link as Li } from "react-router-dom";
 import { Snackbar } from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+export default function ForgotPassword() {
   const [signInDetails, setSignInDetails] = React.useState({
     email: "",
     password: "",
+    cpassword: "",
   });
   const [message, setMessage] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -37,14 +38,11 @@ export default function SignInSide() {
     } else if (signInDetails.password === "") {
       setMessage("Password cannot be Empty !");
       setOpen(true);
-    } else if (
-      signInDetails.email === process.env.REACT_APP_USERNAME &&
-      signInDetails.password === process.env.REACT_APP_PASSWORD
-    ) {
-      navigate("/home");
+    } else if (signInDetails.password === signInDetails.cpassword) {
+      navigate("/");
     } else {
-      setMessage("Invalid Username or Password ! Create an account");
-      navigate('/signup')
+      setMessage("Invalid Email ! Create an account");
+      navigate("/signup");
       setOpen(true);
     }
   };
@@ -105,7 +103,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Reset Password
             </Typography>
             <Box
               component="form"
@@ -134,7 +132,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="New Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -145,9 +143,21 @@ export default function SignInSide() {
                   }));
                 }}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Confirm Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => {
+                  setSignInDetails((prev) => ({
+                    ...prev,
+                    cpassword: e.target.value,
+                  }));
+                }}
               />
               <Button
                 type="submit"
@@ -155,21 +165,18 @@ export default function SignInSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Reset Password
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Li to={'/forgot'}>
-                    Forgot password?
-                  </Li>
-                </Grid>
-                <Grid item>
-                  <Li to={"/signup"}>
-                    {"Don't have an account? Sign Up"}
-                  </Li>
-                </Grid>
-              </Grid>
             </Box>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 0, mb: 2 }}
+              onClick={() => navigate('/')}
+            >
+              Sign In
+            </Button>
             <Snackbar
               open={open}
               autoHideDuration={6000}
