@@ -18,6 +18,7 @@ import { Avatar } from '@mui/material';
 import Logo from '../../assets/marketplace.png'
 import StoreIcon from '@mui/icons-material/Store';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,6 +61,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function CustomAppBar() {
+
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -74,9 +77,13 @@ export default function CustomAppBar() {
     setMobileMoreAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    navigate('/')
+  }
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+    navigate('/profile')
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -101,7 +108,7 @@ export default function CustomAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
