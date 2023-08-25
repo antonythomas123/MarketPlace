@@ -90,6 +90,10 @@ export default function CustomAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleCartClick = () => {
+    navigate('/cart');
+  }
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -205,6 +209,7 @@ export default function CustomAppBar() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              onClick={handleCartClick}
             >
               <Badge badgeContent={17} color="error">
                 <LocalGroceryStoreIcon />
