@@ -1,0 +1,9 @@
+.categories_main{
+    display: flex;
+    padding: 10px;
+    overflow-x: scroll;
+    overflow-y: hidden;  
+}
+.categories_main::-webkit-scrollbar{
+    display: none;
+}
