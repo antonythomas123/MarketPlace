@@ -24,7 +24,6 @@ function Home() {
   const categorizedProducts = {};
 
   categories.forEach((category) => {
-    //console.log(category)
     categorizedProducts[category] = products.filter(
       (product) => product.category === category
     );
