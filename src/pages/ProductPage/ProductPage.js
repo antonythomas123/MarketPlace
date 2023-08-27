@@ -9,6 +9,7 @@ import Slider from "../../components/Slider/Slider";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
 import { Rating } from "@mui/material";
+import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 
 const defaultTheme = createTheme();
 
@@ -30,6 +31,7 @@ export default function ProductPage() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <CustomAppBar/>
       <Grid container sx={{ height: "100%" }}>
         <Grid item sx={{ width: "50%" }}>
           <Grid
