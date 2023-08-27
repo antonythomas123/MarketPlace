@@ -45,7 +45,10 @@ function Home() {
               sx={{ display: "flex", justifyContent: "center" }}
               xs={12}
             >
-              <Products category={category} products={categorizedProducts[category]} />
+              <Products
+                category={category}
+                products={categorizedProducts[category]}
+              />
             </Grid>
           );
         })}

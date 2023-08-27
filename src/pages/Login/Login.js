@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -14,8 +13,10 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, Link as Li } from "react-router-dom";
 import { Snackbar } from "@mui/material";
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { getUsersCollection } from "../../services/database";
+import { useUserContext } from "../../contexts/UserContext";
 
 const defaultTheme = createTheme();
 
@@ -28,23 +29,32 @@ export default function SignInSide() {
   const [open, setOpen] = React.useState(false);
 
   const navigate = useNavigate();
+  const {setUser } = useUserContext();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
+    const users = await getUsersCollection();
+    const user = users?.findOne({ email: signInDetails.email });
+
     if (signInDetails.email === "") {
       setMessage("Email Cannot be Empty !");
       setOpen(true);
     } else if (signInDetails.password === "") {
       setMessage("Password cannot be Empty !");
       setOpen(true);
-    } else if (
-      signInDetails.email === process.env.REACT_APP_USERNAME &&
-      signInDetails.password === process.env.REACT_APP_PASSWORD
-    ) {
-      navigate("/home");
+    } else if (user) {
+      if (user?.password === signInDetails.password) {
+        setMessage("User signed in successfully");
+        setOpen(true);
+        setUser(user);
+        navigate("/home");
+      }else{
+        setMessage("Invalid Password!");
+        setOpen(true);
+      }
     } else {
       setMessage("Invalid Username or Password ! Create an account");
-      navigate('/signup')
+      navigate("/signup");
       setOpen(true);
     }
   };
@@ -159,14 +169,10 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Li to={'/forgot'}>
-                    Forgot password?
-                  </Li>
+                  <Li to={"/forgot"}>Forgot password?</Li>
                 </Grid>
                 <Grid item>
-                  <Li to={"/signup"}>
-                    {"Don't have an account? Sign Up"}
-                  </Li>
+                  <Li to={"/signup"}>{"Don't have an account? Sign Up"}</Li>
                 </Grid>
               </Grid>
             </Box>

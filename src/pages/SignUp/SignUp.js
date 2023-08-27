@@ -13,6 +13,7 @@ import { useNavigate, Link as Li } from "react-router-dom";
 import { Snackbar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { getUsersCollection } from "../../services/database";
 
 const defaultTheme = createTheme();
 
@@ -30,6 +31,9 @@ export default function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const users = getUsersCollection();
+    const existingUser = users.findOne({ email: signUpDetails.email });
+
     if (signUpDetails.fname === "") {
       setMessage("First Name is Required !");
       setOpen(true);
@@ -45,8 +49,13 @@ export default function SignUp() {
     } else if (signUpDetails.password === "") {
       setMessage("Password is Required !");
       setOpen(true);
-    } else {
+    } else if (existingUser) {
+      setMessage("User already exists! Please sign in");
+      setOpen(true);
       navigate("/");
+    } else {
+      users.insert(signUpDetails);
+      navigate('/');
     }
   };
 

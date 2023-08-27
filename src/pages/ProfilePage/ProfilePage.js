@@ -14,9 +14,14 @@ import { Box } from "@mui/system";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import PersonIcon from "@mui/icons-material/Person";
 import RadioGroup from '@mui/material/RadioGroup';
-
+import { useUserContext } from "../../contexts/UserContext";
 
 function ProfilePage() {
+
+  const { user } = useUserContext();
+
+  console.log(user);
+
   return (
     <Box>
       <CustomAppBar />
@@ -42,7 +47,7 @@ function ProfilePage() {
                   <Typography fontSize="14px">Hello,</Typography>
                 </Grid>
                 <Grid item>
-                  <Typography>Antony Thomas</Typography>
+                  <Typography>{user.fname? user.fname : ""} {user.lname ? user.lname: ""}</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -96,8 +101,8 @@ function ProfilePage() {
               item
               sx={{ display: "flex", justifyContent: "space-evenly", mt: 2 }}
             >
-              <TextField variant="outlined" label="Antony" disabled></TextField>
-              <TextField variant="outlined" label="Thomas" disabled></TextField>
+              <TextField variant="outlined" label={user.fname ? user.fname : ""} disabled></TextField>
+              <TextField variant="outlined" label={user.lname ? user.lname : ""} disabled></TextField>
             </Grid>
             <Grid item ml={2} mt={2}>
               <Typography>Your Gender</Typography>
@@ -137,7 +142,7 @@ function ProfilePage() {
               xs={12}
               sx={{ display: "flex", justifyContent: "space-evenly", mt: 2 }}
             >
-              <TextField sx={{width: "50%"}} variant="outlined" label="antonythomas993@gmail.com" disabled></TextField>
+              <TextField sx={{width: "50%"}} variant="outlined" label={user.email ? user.email : ""} disabled></TextField>
             </Grid>
           </Grid>
         </Grid>

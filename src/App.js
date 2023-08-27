@@ -7,6 +7,7 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Cart from "./pages/Cart/Cart";
+import DBView from "./components/DBView/DBView";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/product" element={<ProductPage/>}/>
           <Route path="/profile" element={<ProfilePage/>}/>
           <Route path="/cart" element={<Cart/>}/>
+          <Route path="/db" element={<DBView/>}/>
         </Routes> 
       </BrowserRouter>
     </div>
