@@ -1,8 +1,22 @@
 import { Grid, Paper, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
+import { useStateValue } from "../../contexts/StateProvider";
+import { useUserContext } from "../../contexts/UserContext";
 
-function CartCard({ price, title, stock, rating, image }) {
+function CartCard({ price, title, stock, rating, image, id }) {
+  const [basket, dispatch] = useStateValue();
+  const {user}  = useUserContext();
+
+  const handleRemoveFromCart = () => {
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      item: {
+        id: id,
+      },
+      email: user.email
+    })
+  }
   return (
     <Grid item sx={{ width: "100%" }} component={Paper}>
       <Grid
@@ -34,7 +48,7 @@ function CartCard({ price, title, stock, rating, image }) {
                 <Button variant="outlined">Save for Later</Button>
               </Grid>
               <Grid item>
-                <Button variant="outlined">Remove</Button>
+                <Button variant="outlined" onClick={()=> handleRemoveFromCart()}>Remove</Button>
               </Grid>
             </Grid>
           </Grid>

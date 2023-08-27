@@ -30,6 +30,7 @@ function Cart() {
                 stock={item.stock}
                 rating={item.rating}
                 image={item.image}
+                id={item.id}
               />
             );
           })}
