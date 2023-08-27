@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography, Button } from "@mui/material";
 import { Box, height } from "@mui/system";
 import React from "react";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
@@ -55,7 +55,7 @@ function Cart() {
               </Grid>
               <Grid
                 item
-                sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+                sx={{ display: "flex", justifyContent: "space-between", mt: 2, mb: 2, borderBottom: "1px solid #999" }}
               >
                 <Grid>
                   <Typography>Total Amount</Typography>
@@ -63,6 +63,10 @@ function Cart() {
                 <Grid>
                   <Typography>${totalPrice}</Typography>
                 </Grid>
+              </Grid>
+
+              <Grid container justifyContent="center">
+                <Button fullWidth sx={{background: "#fb641b", color: "#222"}}>Proceed to Checkout</Button>
               </Grid>
             </Grid>
           </Grid>
