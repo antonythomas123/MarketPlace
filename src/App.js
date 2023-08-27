@@ -8,6 +8,7 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Cart from "./pages/Cart/Cart";
 import DBView from "./components/DBView/DBView";
+import BuyNow from "./pages/BuyNow/BuyNow";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage/>}/>
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/db" element={<DBView/>}/>
+          <Route path="/buynow" element={<BuyNow/>}/>
         </Routes> 
       </BrowserRouter>
     </div>

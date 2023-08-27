@@ -13,7 +13,7 @@ import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import { useStateValue } from "../../contexts/StateProvider";
 import { useUserContext } from "../../contexts/UserContext";
 import { getUsersReviewCollection } from "../../services/database";
-import { async } from "q";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
@@ -45,6 +45,8 @@ export default function ProductPage() {
 
   const { user } = useUserContext();
 
+  const navigate = useNavigate();
+
   const addToCart = () => {
     dispatch({
       type: "ADD_TO_BASKET",
@@ -71,7 +73,7 @@ export default function ProductPage() {
     setOpenReview(true);
   };
 
-  const handleReviewSubmit = async() => {
+  const handleReviewSubmit = async () => {
     setUserReviews({
       ...userReviews,
       rating: review,
@@ -88,8 +90,8 @@ export default function ProductPage() {
     if (reviews) {
       reviews.insert(newReview);
       setOpenReview(false);
-    }else{
-      console.log("review error")
+    } else {
+      console.log("review error");
     }
   };
   return (
@@ -150,6 +152,7 @@ export default function ProductPage() {
                       color: "white",
                       borderColor: "#fb641b",
                     }}
+                    onClick={() => navigate("/buynow")}
                   >
                     Buy Now
                   </Button>
@@ -230,6 +233,7 @@ export default function ProductPage() {
                     color: "white",
                     borderColor: "#fb641b",
                   }}
+                  onClick={() => navigate("/buynow")}
                 >
                   Buy Now
                 </Button>
