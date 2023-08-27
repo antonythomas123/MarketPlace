@@ -2,12 +2,11 @@ import { Grid, Paper, Typography } from "@mui/material";
 import React from "react";
 import Button from "@mui/material/Button";
 
-function CartCard() {
+function CartCard({ price, title, stock, rating, image }) {
   return (
-    <Grid item sx={{ width: "100%"}} component={Paper} p={3}>
+    <Grid item sx={{ width: "100%" }} component={Paper}>
       <Grid
         container
-        sx={{ height: "100%" }}
         justifyContent="center"
         alignItems="center"
       >
@@ -18,15 +17,16 @@ function CartCard() {
           alignItems="center"
         >
           <Grid mr={4}>
-            <img src="" alt="image" />
+            <img src={image} alt="image" style={{height: "140px"}}/>
           </Grid>
           <Grid container flexDirection="column">
-            <Typography>Iphone 6</Typography>
-            <Typography>Stock : </Typography>
+            <Typography>{title}</Typography>
+            <Typography>Stock : {stock}</Typography>
             <Grid
               container
               sx={{
                 width: "100%",
+                display: "flex",
                 justifyContent: "space-between",
               }}
             >

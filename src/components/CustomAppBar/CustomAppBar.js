@@ -19,6 +19,7 @@ import Logo from '../../assets/marketplace.png'
 import StoreIcon from '@mui/icons-material/Store';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import { useNavigate } from 'react-router-dom';
+import { useStateValue } from '../../contexts/StateProvider';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,6 +62,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function CustomAppBar() {
+
+  const [{basket}, dispatch] = useStateValue();
+
 
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -147,7 +151,7 @@ export default function CustomAppBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={basket?.length} color="error">
             <LocalGroceryStoreIcon/>
           </Badge>
         </IconButton>
@@ -185,7 +189,8 @@ export default function CustomAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block', cursor: "pointer" } }}
+            onClick={()=> navigate('/home')}
           >
             My MarketPlace
           </Typography>
@@ -211,7 +216,7 @@ export default function CustomAppBar() {
               color="inherit"
               onClick={handleCartClick}
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={basket?.length} color="error">
                 <LocalGroceryStoreIcon />
               </Badge>
             </IconButton>

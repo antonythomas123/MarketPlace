@@ -9,6 +9,8 @@ import Slider from "../../components/Slider/Slider";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
 import { Rating } from "@mui/material";
+import { useStateValue } from "../../contexts/StateProvider";
+import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 
 const defaultTheme = createTheme();
 
@@ -27,9 +29,27 @@ export default function ProductPage() {
     stock,
     title,
   } = location.state;
+  const [basket, dispatch] = useStateValue();
+
+  const addToCart = () => {
+    dispatch({
+      type: "ADD_TO_BASKET",
+      item: {
+        id: id,
+        title: title,
+        brand: brand,
+        image: images[0],
+        price: price,
+        stock: stock,
+        rating: rating,
+        discountPercentage: discountPercentage,
+      },
+    });
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <CustomAppBar/>
       <Grid container sx={{ height: "100%" }}>
         <Grid item sx={{ width: "50%" }}>
           <Grid
@@ -62,16 +82,29 @@ export default function ProductPage() {
                   sx={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Button
+                    onClick={addToCart}
                     variant="outlined"
                     startIcon={<AddShoppingCartIcon />}
-                    sx={{ width: "50%", m: 1,  background: "#ff9f00", color: "white", borderColor: "#ff9f00" }}
+                    sx={{
+                      width: "50%",
+                      m: 1,
+                      background: "#ff9f00",
+                      color: "white",
+                      borderColor: "#ff9f00",
+                    }}
                   >
                     Add to Cart
                   </Button>
                   <Button
                     variant="outlined"
                     startIcon={<FlashOnIcon />}
-                    sx={{ width: "50%", m: 1, background: "#fb641b", color: "white", borderColor: "#fb641b" }}
+                    sx={{
+                      width: "50%",
+                      m: 1,
+                      background: "#fb641b",
+                      color: "white",
+                      borderColor: "#fb641b",
+                    }}
                   >
                     Buy Now
                   </Button>
@@ -130,16 +163,28 @@ export default function ProductPage() {
             <Grid item xs={12}>
               <Grid>
                 <Button
+                  onClick={addToCart}
                   variant="outlined"
                   startIcon={<AddShoppingCartIcon />}
-                  sx={{width: "30%", marginRight: "10px", background: "#ff9f00", color: "white", borderColor: "#ff9f00"}}
+                  sx={{
+                    width: "30%",
+                    marginRight: "10px",
+                    background: "#ff9f00",
+                    color: "white",
+                    borderColor: "#ff9f00",
+                  }}
                 >
                   Add To Cart
                 </Button>
                 <Button
                   variant="outlined"
                   startIcon={<FlashOnIcon />}
-                  sx={{width: "30%", background: "#fb641b", color: "white", borderColor: "#fb641b"}}
+                  sx={{
+                    width: "30%",
+                    background: "#fb641b",
+                    color: "white",
+                    borderColor: "#fb641b",
+                  }}
                 >
                   Buy Now
                 </Button>
