@@ -11,7 +11,6 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 import { Rating } from "@mui/material";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import { useStateValue } from "../../contexts/StateProvider";
-import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 
 const defaultTheme = createTheme();
 
