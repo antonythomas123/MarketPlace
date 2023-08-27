@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { getUsersCollection } from '../../services/database';
+import React from "react";
+import { getUsersCollection } from "../../services/database";
 
 function DBView() {
   const users = getUsersCollection();
@@ -9,9 +8,25 @@ function DBView() {
     <div>
       <h2>Database Details</h2>
       <ul>
-        {users?.data.map((user, index) => (
+        {users.data.map((user, index) => (
           <li key={index}>
-            Email: {user.email}, Password: {user.password}
+            <strong>Email:</strong> {user.email}, <strong>Password:</strong>{" "}
+            {user.password}
+            <br />
+            {user.cart ? (
+              <>
+                <strong>Cart Items:</strong>
+                <ul>
+                  {user.cart.map((item, itemIndex) => (
+                    <li key={itemIndex}>
+                      {item.name} - ${item.price}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p>No cart items</p>
+            )}
           </li>
         ))}
       </ul>

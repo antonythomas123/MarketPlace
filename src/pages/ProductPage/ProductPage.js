@@ -11,6 +11,7 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 import { Rating } from "@mui/material";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import { useStateValue } from "../../contexts/StateProvider";
+import { useUserContext } from "../../contexts/UserContext";
 
 const defaultTheme = createTheme();
 
@@ -31,6 +32,8 @@ export default function ProductPage() {
   } = location.state;
   const [basket, dispatch] = useStateValue();
 
+  const {user}  = useUserContext();
+
   const addToCart = () => {
     dispatch({
       type: "ADD_TO_BASKET",
@@ -44,6 +47,7 @@ export default function ProductPage() {
         rating: rating,
         discountPercentage: discountPercentage,
       },
+      email: user.email
     });
   };
 
