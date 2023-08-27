@@ -5,11 +5,14 @@ import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import CartCard from "../../components/CartCard/CartCard";
 import { useStateValue } from "../../contexts/StateProvider";
 import { getBasketTotal } from "../../reducers/reducer";
+import { useNavigate } from "react-router";
 
 function Cart() {
   const [{ basket }, dispatch] = useStateValue();
 
   const totalPrice = getBasketTotal(basket);
+
+  const navigate = useNavigate();
 
   return (
     <Box>
@@ -55,7 +58,13 @@ function Cart() {
               </Grid>
               <Grid
                 item
-                sx={{ display: "flex", justifyContent: "space-between", mt: 2, mb: 2, borderBottom: "1px solid #999" }}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mt: 2,
+                  mb: 2,
+                  borderBottom: "1px solid #999",
+                }}
               >
                 <Grid>
                   <Typography>Total Amount</Typography>
@@ -66,7 +75,9 @@ function Cart() {
               </Grid>
 
               <Grid container justifyContent="center">
-                <Button fullWidth sx={{background: "#fb641b", color: "#222"}}>Proceed to Checkout</Button>
+                <Button fullWidth sx={{ background: "#fb641b", color: "#222" }} onClick={() => navigate('/buynow')}>
+                  Proceed to Checkout
+                </Button>
               </Grid>
             </Grid>
           </Grid>

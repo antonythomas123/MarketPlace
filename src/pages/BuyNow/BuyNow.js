@@ -12,6 +12,10 @@ import DoneIcon from "@mui/icons-material/Done";
 import BuyNowForm from "../../components/BuyNowForm/BuyNowForm";
 import PaymentCard from "../../components/PaymentCard/PaymentCard";
 import { useNavigate } from "react-router";
+import { useStateValue } from "../../contexts/StateProvider";
+import { useUserContext } from "../../contexts/UserContext";
+import CartCard from "../../components/CartCard/CartCard";
+import { getBasketTotal } from "../../reducers/reducer";
 
 function BuyNow() {
   const [paymentDetails, setPaymentDetails] = useState({
@@ -31,6 +35,10 @@ function BuyNow() {
   });
 
   const navigate = useNavigate();
+  const [{ basket }, dispatch] = useStateValue();
+  const totalPrice = getBasketTotal(basket);
+
+  const { user } = useUserContext();
 
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
@@ -42,8 +50,8 @@ function BuyNow() {
     setCardDetails((prev) => ({ ...prev, focus: evt.target.name }));
   };
   const handleBuy = () => {
-    alert("Order placed Successfully!")
-    navigate('/home');
+    alert("Order placed Successfully!");
+    navigate("/home");
   };
 
   return (
@@ -115,6 +123,34 @@ function BuyNow() {
                 m: 2,
               }}
             >
+              {basket.map((item) => (
+                <CartCard
+                  price={item.price}
+                  title={item.price}
+                  stock={item.stock}
+                  rating={item.rating}
+                  image={item.image}
+                  id={item.id}
+                />
+              ))}
+            </Grid>
+            <Grid item sx={{ width: "100%",display: "flex" ,justifyContent:"flex-end", m:2}}>
+              <Typography>Total : {totalPrice}</Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container component={Paper} xs={6} m={2}>
+            <Grid
+              item
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                paddingLeft: "12px",
+                m: 2,
+              }}
+            >
               <PaymentCard
                 cardDetails={cardDetails}
                 setCardDetails={setCardDetails}
@@ -127,7 +163,7 @@ function BuyNow() {
           <Grid container xs={6} m={2}>
             <Grid item sx={{ width: "100%" }}>
               <Button onClick={() => handleBuy()} variant="outlined" fullWidth>
-                PAY & BUY
+                {totalPrice} PAY & BUY
               </Button>
             </Grid>
           </Grid>
