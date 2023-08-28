@@ -1,18 +1,26 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
 import { Box, height } from "@mui/system";
-import React from "react";
+import React, { useContext } from "react";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import CartCard from "../../components/CartCard/CartCard";
 import { useStateValue } from "../../contexts/StateProvider";
 import { getBasketTotal } from "../../reducers/reducer";
 import { useNavigate } from "react-router";
+import CartContext from "../../contexts/CartContext";
 
 function Cart() {
   const [{ basket }, dispatch] = useStateValue();
 
   const totalPrice = getBasketTotal(basket);
 
+  const {setIsCart} = useContext(CartContext);
+
   const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    setIsCart(true);
+    navigate('/buynow')
+  }
 
   return (
     <Box>
@@ -76,7 +84,7 @@ function Cart() {
               </Grid>
 
               <Grid container justifyContent="center">
-                <Button fullWidth sx={{ background: "#fb641b", color: "#222" }} onClick={() => navigate('/buynow')}>
+                <Button fullWidth sx={{ background: "#fb641b", color: "#222" }} onClick={() => handleCheckout()}>
                   Proceed to Checkout
                 </Button>
               </Grid>

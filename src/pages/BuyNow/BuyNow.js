@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import {
   Grid,
@@ -16,6 +16,7 @@ import { useStateValue } from "../../contexts/StateProvider";
 import { useUserContext } from "../../contexts/UserContext";
 import CartCard from "../../components/CartCard/CartCard";
 import { getBasketTotal, getBuyNowTotal } from "../../reducers/reducer";
+import CartContext from "../../contexts/CartContext";
 
 function BuyNow() {
   const [paymentDetails, setPaymentDetails] = useState({
@@ -36,6 +37,7 @@ function BuyNow() {
 
   const navigate = useNavigate();
   const [{ basket, directBuyNowProduct }, dispatch] = useStateValue();
+  const {isCart} =useContext(CartContext);
   const totalPrice = getBasketTotal(basket);
   const buyNowPrice = getBuyNowTotal(directBuyNowProduct);
 
@@ -112,7 +114,7 @@ function BuyNow() {
             </Grid>
           </Grid>
 
-          {basket.length > 0 ? (
+          {isCart && basket.length > 0 ? (
             <Grid container component={Paper} xs={6} m={2}>
               <Grid
                 item
@@ -225,7 +227,7 @@ function BuyNow() {
         </Grid>
       </Grid>
     </Box>
-  );
+  )
 }
 
 export default BuyNow;
