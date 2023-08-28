@@ -7,6 +7,7 @@ import {
   Button,
   Box,
   FormControl,
+  Snackbar,
 } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import BuyNowForm from "../../components/BuyNowForm/BuyNowForm";
@@ -17,7 +18,12 @@ import { useUserContext } from "../../contexts/UserContext";
 import CartCard from "../../components/CartCard/CartCard";
 import { getBasketTotal, getBuyNowTotal } from "../../reducers/reducer";
 import CartContext from "../../contexts/CartContext";
-import { getOrderedItemsCollection, getOrdersCollection } from "../../services/database";
+import {
+  getOrderedItemsCollection,
+  getOrdersCollection,
+} from "../../services/database";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 function BuyNow() {
   const [paymentDetails, setPaymentDetails] = useState({
@@ -35,8 +41,11 @@ function BuyNow() {
     name: "",
     focus: "",
   });
+  const [message, setMessage] = React.useState("");
+  const [open, setOpen] = React.useState(false);
 
   const navigate = useNavigate();
+
   const [{ basket, directBuyNowProduct }, dispatch] = useStateValue();
   const { isCart } = useContext(CartContext);
   const totalPrice = getBasketTotal(basket);
@@ -54,33 +63,73 @@ function BuyNow() {
     setCardDetails((prev) => ({ ...prev, focus: evt.target.name }));
   };
   const handleBuy = () => {
-    const order = {
-      userId: user.email,
-      paymentDetails,
-      items: basket.concat(directBuyNowProduct),
-      total: totalPrice ? totalPrice : buyNowPrice,
-      timestamp: new Date().toISOString(),
-    };
+    if (
+      paymentDetails.fname === "" ||
+      paymentDetails.lname === "" ||
+      paymentDetails.address === "" ||
+      paymentDetails.phone === "" ||
+      paymentDetails.pincode === ""
+    ) {
+      setMessage("Please Enter all Delivery Details");
+      setOpen(true)
+    } else if (
+      cardDetails.number === "" ||
+      cardDetails.name === "" ||
+      cardDetails.expiry === "" ||
+      cardDetails.cvc === ""
+    ) {
+      setMessage("Please Enter Card Details");
+      setOpen(true)
+    } else {
+      const order = {
+        userId: user.email,
+        paymentDetails,
+        items: basket.concat(directBuyNowProduct),
+        total: totalPrice ? totalPrice : buyNowPrice,
+        timestamp: new Date().toISOString(),
+      };
 
-    const ordersCollection = getOrdersCollection();
-    const orderedItemsCollection = getOrderedItemsCollection();
+      const ordersCollection = getOrdersCollection();
+      const orderedItemsCollection = getOrderedItemsCollection();
 
-    if (ordersCollection && orderedItemsCollection) {
-      const insertedOrder = ordersCollection.insert(order);
+      if (ordersCollection && orderedItemsCollection) {
+        const insertedOrder = ordersCollection.insert(order);
 
-      insertedOrder.items.forEach((item) => {
-        const orderedItem = {
-          orderId: insertedOrder.$loki,
-          productId: item.id,
-          quantity: 1,
-          status: "order_placed"
-        };
-        orderedItemsCollection.insert(orderedItem);
-      });
+        insertedOrder.items.forEach((item) => {
+          const orderedItem = {
+            orderId: insertedOrder.$loki,
+            productId: item.id,
+            quantity: 1,
+            status: "order_placed",
+          };
+          orderedItemsCollection.insert(orderedItem);
+        });
+      }
+      alert("Order placed Successfully!");
+      navigate("/home");
     }
-    alert("Order placed Successfully!");
-    navigate("/home");
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   return (
     <Box>
@@ -250,6 +299,13 @@ function BuyNow() {
                 {totalPrice ? totalPrice : buyNowPrice} PAY & BUY
               </Button>
             </Grid>
+            <Snackbar
+              open={open}
+              autoHideDuration={6000}
+              onClose={handleClose}
+              message={message}
+              action={action}
+            />
           </Grid>
         </Grid>
       </Grid>
