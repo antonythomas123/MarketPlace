@@ -31,6 +31,7 @@ function Home() {
 
   useEffect(() => {
     getProductCategories();
+    // window.scrollTo(0, 0);
   }, []);
   return (
     <div>
@@ -39,17 +40,19 @@ function Home() {
       <Grid container>
         {categories.map((category, key) => {
           return (
-            <Grid
-              key={key}
-              item
-              sx={{ display: "flex", justifyContent: "center" }}
-              xs={12}
-            >
-              <Products
-                category={category}
-                products={categorizedProducts[category]}
-              />
-            </Grid>
+            <section id={category}>
+              <Grid
+                key={key}
+                item
+                sx={{ display: "flex", justifyContent: "center" }}
+                xs={12}
+              >
+                <Products
+                  category={category}
+                  products={categorizedProducts[category]}
+                />
+              </Grid>
+            </section>
           );
         })}
       </Grid>

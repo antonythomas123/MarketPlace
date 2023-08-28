@@ -1,8 +1,14 @@
 import React from "react";
-import "./Categories.css"
+import "./Categories.css";
 import { Grid, Typography } from "@mui/material";
+import * as Scroll from "react-scroll";
+import { Link, useLocation } from "react-router-dom";
+
+const ScrollLink = Scroll.Link;
 
 function Categories({ products }) {
+  const location = useLocation();
+
   const categoryImageMap = {};
 
   products.forEach((product) => {
@@ -14,28 +20,38 @@ function Categories({ products }) {
   return (
     <div className="categories_main">
       {Object.keys(categoryImageMap).map((category, key) => (
-        <Grid
-          item
-          key={key}
-          sx={{
-            display: "flex",
-            minWidth: "100px",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+        <ScrollLink
+          key={key} // Use key as the key prop
+          to={category}
+          spy
+          smooth={true}
+          offset={-100}
+          duration={500}
+          style={{ cursor: "pointer" }}
         >
-          <img
-            src={categoryImageMap[category]}
-            alt={category}
-            style={{
-              maxWidth: "50px",
-              height: "50px",
-              borderRadius: "100px",
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              minWidth: "100px",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-          />
-          <Typography fontSize="12px">{category}</Typography>
-        </Grid>
+          >
+            <img
+              src={categoryImageMap[category]}
+              alt={category}
+              style={{
+                maxWidth: "50px",
+                height: "50px",
+                borderRadius: "100px",
+              }}
+            />
+
+            <Typography fontSize="12px">{category}</Typography>
+          </Grid>
+        </ScrollLink>
       ))}
     </div>
   );
