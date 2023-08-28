@@ -17,7 +17,10 @@ import { useUserContext } from "../../contexts/UserContext";
 import CartCard from "../../components/CartCard/CartCard";
 import { getBasketTotal, getBuyNowTotal } from "../../reducers/reducer";
 import CartContext from "../../contexts/CartContext";
-import { getOrderedItemsCollection, getOrdersCollection } from "../../services/database";
+import {
+  getOrderedItemsCollection,
+  getOrdersCollection,
+} from "../../services/database";
 
 function BuyNow() {
   const [paymentDetails, setPaymentDetails] = useState({
@@ -54,30 +57,48 @@ function BuyNow() {
     setCardDetails((prev) => ({ ...prev, focus: evt.target.name }));
   };
   const handleBuy = () => {
-    const order = {
-      userId: user.email,
-      paymentDetails,
-      items: basket.concat(directBuyNowProduct),
-      total: totalPrice ? totalPrice : buyNowPrice,
-      timestamp: new Date().toISOString(),
-    };
-
     const ordersCollection = getOrdersCollection();
     const orderedItemsCollection = getOrderedItemsCollection();
 
     if (ordersCollection && orderedItemsCollection) {
-      const insertedOrder = ordersCollection.insert(order);
+      const existingOrder = ordersCollection.findOne({ userId: user.email });
 
-      insertedOrder.items.forEach((item) => {
-        const orderedItem = {
-          orderId: insertedOrder.$loki,
-          productId: item.id,
-          quantity: 1,
-          status: "order_placed"
+      if (existingOrder) {
+        existingOrder.items.push(...basket.concat(directBuyNowProduct));
+
+        ordersCollection.update(existingOrder);
+        existingOrder.items.forEach((item) => {
+          const orderedItem = {
+            orderId: existingOrder.$loki,
+            productId: item.id,
+            quantity: 1,
+            status: "order_placed",
+          };
+          orderedItemsCollection.insert(orderedItem);
+        });
+      } else {
+        const newOrder = {
+          userId: user.email,
+          paymentDetails,
+          items: basket.concat(directBuyNowProduct),
+          total: totalPrice ? totalPrice : buyNowPrice,
+          timestamp: new Date().toISOString(),
         };
-        orderedItemsCollection.insert(orderedItem);
-      });
+
+        const insertedOrder = ordersCollection.insert(newOrder);
+
+        insertedOrder.items.forEach((item) => {
+          const orderedItem = {
+            orderId: insertedOrder.$loki,
+            productId: item.id,
+            quantity: 1,
+            status: "order_placed",
+          };
+          orderedItemsCollection.insert(orderedItem);
+        });
+      }
     }
+
     alert("Order placed Successfully!");
     navigate("/home");
   };

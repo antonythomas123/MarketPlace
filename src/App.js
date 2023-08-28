@@ -12,6 +12,7 @@ import BuyNow from "./pages/BuyNow/BuyNow";
 import ScrollToTop from "./scrollToTop";
 import CartContext from "./contexts/CartContext";
 import { useState } from "react";
+import OrderTracking from "./pages/OrderTracking/OrderTracking";
 
 function App() {
   const [isCart, setIsCart] = useState(false);
@@ -31,6 +32,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/db" element={<DBView />} />
             <Route path="/buynow" element={<BuyNow />} />
+            <Route path="/orderTracking" element = {<OrderTracking/>}/>
           </Routes>
         </CartContext.Provider>
       </BrowserRouter>
