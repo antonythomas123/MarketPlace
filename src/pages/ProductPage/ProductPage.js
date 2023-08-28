@@ -41,7 +41,7 @@ export default function ProductPage() {
     stock,
     title,
   } = location.state;
-  const [basket, dispatch] = useStateValue();
+  const [{basket, directBuyNowProduct}, dispatch] = useStateValue();
 
   const { user } = useUserContext();
 
@@ -94,6 +94,24 @@ export default function ProductPage() {
       console.log("review error");
     }
   };
+
+  const goToBuyNow = () => {
+    dispatch({
+      type: "BUY_NOW",
+      item: {
+        id: id,
+        title: title,
+        brand: brand,
+        image: images[0],
+        price: price,
+        stock: stock,
+        rating: rating,
+        discountPercentage: discountPercentage,
+      },
+      email: user.email,
+    });
+    navigate("/buynow")
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <CustomAppBar />
@@ -233,7 +251,7 @@ export default function ProductPage() {
                     color: "white",
                     borderColor: "#fb641b",
                   }}
-                  onClick={() => navigate("/buynow")}
+                  onClick={() => goToBuyNow()}
                 >
                   Buy Now
                 </Button>

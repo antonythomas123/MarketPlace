@@ -8,7 +8,7 @@ function DBView() {
     <div>
       <h2>Database Details</h2>
       <ul>
-        {users.data.map((user, index) => (
+        {users?.data.map((user, index) => (
           <li key={index}>
             <strong>Email:</strong> {user.email}, <strong>Password:</strong>{" "}
             {user.password}

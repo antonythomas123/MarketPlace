@@ -15,7 +15,7 @@ import { useNavigate } from "react-router";
 import { useStateValue } from "../../contexts/StateProvider";
 import { useUserContext } from "../../contexts/UserContext";
 import CartCard from "../../components/CartCard/CartCard";
-import { getBasketTotal } from "../../reducers/reducer";
+import { getBasketTotal, getBuyNowTotal } from "../../reducers/reducer";
 
 function BuyNow() {
   const [paymentDetails, setPaymentDetails] = useState({
@@ -35,8 +35,9 @@ function BuyNow() {
   });
 
   const navigate = useNavigate();
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket, directBuyNowProduct }, dispatch] = useStateValue();
   const totalPrice = getBasketTotal(basket);
+  const buyNowPrice = getBuyNowTotal(directBuyNowProduct);
 
   const { user } = useUserContext();
 
@@ -111,33 +112,87 @@ function BuyNow() {
             </Grid>
           </Grid>
 
-          <Grid container component={Paper} xs={6} m={2}>
-            <Grid
-              item
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                paddingLeft: "12px",
-                m: 2,
-              }}
-            >
-              {basket.map((item) => (
-                <CartCard
-                  price={item.price}
-                  title={item.price}
-                  stock={item.stock}
-                  rating={item.rating}
-                  image={item.image}
-                  id={item.id}
-                />
-              ))}
+          {basket.length > 0 ? (
+            <Grid container component={Paper} xs={6} m={2}>
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  paddingLeft: "12px",
+                  m: 2,
+                }}
+              >
+                {basket.map((item) => (
+                  <CartCard
+                    price={item.price}
+                    title={item.price}
+                    stock={item.stock}
+                    rating={item.rating}
+                    image={item.image}
+                    id={item.id}
+                    actions={"REMOVE_FROM_CART"}
+                  />
+                ))}
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  m: 2,
+                }}
+              >
+                <Typography>Total : {totalPrice}</Typography>
+              </Grid>
             </Grid>
-            <Grid item sx={{ width: "100%",display: "flex" ,justifyContent:"flex-end", m:2}}>
-              <Typography>Total : {totalPrice}</Typography>
+          ) : (
+            ""
+          )}
+
+          {directBuyNowProduct.length > 0 ? (
+            <Grid container component={Paper} xs={6} m={2}>
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "100%",
+                  paddingLeft: "12px",
+                }}
+              >
+                {directBuyNowProduct.map((item) => (
+                  <CartCard
+                    price={item.price}
+                    title={item.price}
+                    stock={item.stock}
+                    rating={item.rating}
+                    image={item.image}
+                    id={item.id}
+                    actions={"REMOVE_FROM_BUY_NOW"}
+                  />
+                ))}
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  m: 2,
+                }}
+              >
+                <Typography>Total : {totalPrice ? totalPrice : buyNowPrice}</Typography>
+              </Grid>
             </Grid>
-          </Grid>
+          ) : (
+            " "
+          )}
 
           <Grid container component={Paper} xs={6} m={2}>
             <Grid
@@ -163,7 +218,7 @@ function BuyNow() {
           <Grid container xs={6} m={2}>
             <Grid item sx={{ width: "100%" }}>
               <Button onClick={() => handleBuy()} variant="outlined" fullWidth>
-                {totalPrice} PAY & BUY
+                {totalPrice ? totalPrice : buyNowPrice} PAY & BUY
               </Button>
             </Grid>
           </Grid>

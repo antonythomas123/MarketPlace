@@ -34,6 +34,7 @@ function Cart() {
                 rating={item.rating}
                 image={item.image}
                 id={item.id}
+                actions={"REMOVE_FROM_CART"}
               />
             );
           })}

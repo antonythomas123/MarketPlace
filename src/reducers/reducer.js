@@ -2,6 +2,7 @@ import { getUsersCollection } from "../services/database";
 
 export const initialState = {
   basket: [],
+  directBuyNowProduct: [],
 };
 
 const dispatchUpdateCartToDatabase = (updatedCart, loggedInUserEmail) => {
@@ -16,6 +17,9 @@ const dispatchUpdateCartToDatabase = (updatedCart, loggedInUserEmail) => {
 export const getBasketTotal = (basket) =>
   basket?.reduce((amount, item) => item.price + amount, 0);
 
+export const getBuyNowTotal = (directBuyNowProduct) =>
+  directBuyNowProduct?.reduce((amount, item) => item.price + amount, 0);
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_BASKET":
@@ -26,7 +30,6 @@ const reducer = (state, action) => {
         basket: updatedBasket,
       };
     case "REMOVE_FROM_CART":
-      console.log(action, state)
       const filteredBasket = state.basket.filter(
         (item) => item.id !== action.item.id
       );
@@ -34,6 +37,19 @@ const reducer = (state, action) => {
       return {
         ...state,
         basket: filteredBasket,
+      };
+    case "BUY_NOW":
+      return {
+        ...state,
+        directBuyNowProduct: [...state.directBuyNowProduct, action.item],
+      };
+    case "REMOVE_FROM_BUY_NOW":
+      const filteredBuyNow = state.directBuyNowProduct.filter(
+        (item) => item.id !== action.item.id
+      );
+      return {
+        ...state,
+        directBuyNowProduct: filteredBuyNow,
       };
     default:
       return state;
