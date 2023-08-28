@@ -41,7 +41,7 @@ const reducer = (state, action) => {
     case "BUY_NOW":
       return {
         ...state,
-        directBuyNowProduct: [...state.directBuyNowProduct, action.item],
+        directBuyNowProduct: [action.item],
       };
     case "REMOVE_FROM_BUY_NOW":
       const filteredBuyNow = state.directBuyNowProduct.filter(

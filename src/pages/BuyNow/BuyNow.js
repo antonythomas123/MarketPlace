@@ -17,6 +17,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import CartCard from "../../components/CartCard/CartCard";
 import { getBasketTotal, getBuyNowTotal } from "../../reducers/reducer";
 import CartContext from "../../contexts/CartContext";
+import { getOrderedItemsCollection, getOrdersCollection } from "../../services/database";
 
 function BuyNow() {
   const [paymentDetails, setPaymentDetails] = useState({
@@ -37,7 +38,7 @@ function BuyNow() {
 
   const navigate = useNavigate();
   const [{ basket, directBuyNowProduct }, dispatch] = useStateValue();
-  const {isCart} =useContext(CartContext);
+  const { isCart } = useContext(CartContext);
   const totalPrice = getBasketTotal(basket);
   const buyNowPrice = getBuyNowTotal(directBuyNowProduct);
 
@@ -53,6 +54,30 @@ function BuyNow() {
     setCardDetails((prev) => ({ ...prev, focus: evt.target.name }));
   };
   const handleBuy = () => {
+    const order = {
+      userId: user.email,
+      paymentDetails,
+      items: basket.concat(directBuyNowProduct),
+      total: totalPrice ? totalPrice : buyNowPrice,
+      timestamp: new Date().toISOString(),
+    };
+
+    const ordersCollection = getOrdersCollection();
+    const orderedItemsCollection = getOrderedItemsCollection();
+
+    if (ordersCollection && orderedItemsCollection) {
+      const insertedOrder = ordersCollection.insert(order);
+
+      insertedOrder.items.forEach((item) => {
+        const orderedItem = {
+          orderId: insertedOrder.$loki,
+          productId: item.id,
+          quantity: 1,
+          status: "order_placed"
+        };
+        orderedItemsCollection.insert(orderedItem);
+      });
+    }
     alert("Order placed Successfully!");
     navigate("/home");
   };
@@ -189,7 +214,9 @@ function BuyNow() {
                   m: 2,
                 }}
               >
-                <Typography>Total : {totalPrice ? totalPrice : buyNowPrice}</Typography>
+                <Typography>
+                  Total : {totalPrice ? totalPrice : buyNowPrice}
+                </Typography>
               </Grid>
             </Grid>
           ) : (
@@ -227,7 +254,7 @@ function BuyNow() {
         </Grid>
       </Grid>
     </Box>
-  )
+  );
 }
 
 export default BuyNow;
