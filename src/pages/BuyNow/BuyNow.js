@@ -24,6 +24,10 @@ import {
 } from "../../services/database";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import {
+  getOrderedItemsCollection,
+  getOrdersCollection,
+} from "../../services/database";
 
 function BuyNow() {
   const [paymentDetails, setPaymentDetails] = useState({
