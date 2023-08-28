@@ -16,17 +16,19 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgot" element={<ForgotPassword />} />
-          <Route path="/product" element={<ProductPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/db" element={<DBView />} />
-          <Route path="/buynow" element={<BuyNow />} />
-        </Routes>
+        <CartContext.Provider value={{ isCart, setIsCart }}>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgot" element={<ForgotPassword />} />
+            <Route path="/product" element={<ProductPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/db" element={<DBView />} />
+            <Route path="/buynow" element={<BuyNow />} />
+          </Routes>
+        </CartContext.Provider>
       </BrowserRouter>
     </div>
   );
