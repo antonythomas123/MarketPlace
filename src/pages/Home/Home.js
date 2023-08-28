@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import Categories from "../../components/Categories/Categories";
 import { fetchProducts } from "../../services/fetchProducts";
 import Products from "../../components/Products/Products";
 import { Grid } from "@mui/material";
 import { fetchProducCategories } from "../../services/fetchProductCategories";
+import CartContext from "../../contexts/CartContext";
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+
+  const {setIsCart} = useContext(CartContext);
 
   const getProductCategories = async () => {
     try {
@@ -16,6 +19,7 @@ function Home() {
       const productCategories = await fetchProducCategories();
       setProducts(fetchedProducts.products);
       setCategories([...productCategories]);
+      setIsCart(false);
     } catch (error) {
       console.log(error);
     }

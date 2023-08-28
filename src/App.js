@@ -10,8 +10,12 @@ import Cart from "./pages/Cart/Cart";
 import DBView from "./components/DBView/DBView";
 import BuyNow from "./pages/BuyNow/BuyNow";
 import ScrollToTop from "./scrollToTop";
+import CartContext from "./contexts/CartContext";
+import { useState } from "react";
 
 function App() {
+  const [isCart, setIsCart] = useState(false);
+  
   return (
     <div className="App">
       <BrowserRouter>
