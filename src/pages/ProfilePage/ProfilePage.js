@@ -110,7 +110,7 @@ function ProfilePage() {
           component={Paper}
         >
           {toggle === false ? (
-            <Grid container justifyContent="center">
+            <Grid container justifyContent="center" flexDirection={'column'}>
               <Grid item ml={2} mt={2}>
                 <Typography>Personal Information</Typography>
               </Grid>
