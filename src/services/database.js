@@ -52,4 +52,15 @@ export async function getUsersReviewCollection() {
   });
 }
 
+export function updateOrderedItemStatus(orderId, productId, status) {
+  const orderedItems = db.getCollection("orderedItems");
+  if (orderedItems) {
+    const orderedItem = orderedItems.findOne({ orderId, productId });
+    if (orderedItem) {
+      orderedItem.status = status;
+      orderedItems.update(orderedItem);
+    }
+  }
+}
+
 export default db;

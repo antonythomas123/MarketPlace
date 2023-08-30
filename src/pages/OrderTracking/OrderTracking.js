@@ -1,5 +1,5 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import Stepper from "@mui/material/Stepper";
 import StepConnector, {
@@ -10,6 +10,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Check from "@mui/icons-material/Check";
 import { useOrderContext } from "../../contexts/OrderContext";
+import { getOrderedItemsCollection, updateOrderedItemStatus } from "../../services/database";
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -75,6 +76,30 @@ function QontoStepIcon(props) {
 function OrderTracking() {
   const { selectedOrder } = useOrderContext();
 
+  const [currentStep, setCurrentStep] = useState(0);
+  const [orderStatus, setOrderStatus] = useState("");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStep((prevStep) => (prevStep + 1) % steps.length);
+    }, 10000);
+
+    if (currentStep === steps.length - 1) {
+      setOrderStatus("Delivered");
+      clearInterval(interval);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentStep]);
+
+  useEffect(() => {
+    if (orderStatus === "Delivered") {
+      updateOrderedItemStatus(selectedOrder.id, "Delivered");
+    }
+  }, [orderStatus, selectedOrder.id]);
+
   return (
     <Box sx={{ width: "100%" }}>
       <CustomAppBar />
@@ -93,7 +118,10 @@ function OrderTracking() {
             </Grid>
 
             <Grid item xs={12} p={2}>
-              <Typography fontWeight={"bold"}>{selectedOrder.paymentDetails.fname} {selectedOrder.paymentDetails.lname}</Typography>
+              <Typography fontWeight={"bold"}>
+                {selectedOrder.paymentDetails.fname}{" "}
+                {selectedOrder.paymentDetails.lname}
+              </Typography>
               <Typography>{selectedOrder.paymentDetails.address}</Typography>
               <Typography>{selectedOrder.paymentDetails.pincode}</Typography>
             </Grid>
@@ -129,7 +157,9 @@ function OrderTracking() {
                 <Typography fontSize="14px" fontWeight="bold">
                   {selectedOrder.title}
                 </Typography>
-                <Typography fontSize="12px">{selectedOrder.items.brand}</Typography>
+                <Typography fontSize="12px">
+                  {selectedOrder.items.brand}
+                </Typography>
                 <Typography fontWeight="bold">
                   $ {selectedOrder.items.price}
                 </Typography>
@@ -147,7 +177,7 @@ function OrderTracking() {
           >
             <Stepper
               alternativeLabel
-              activeStep={1}
+              activeStep={currentStep}
               connector={<QontoConnector />}
             >
               {steps.map((label) => (
