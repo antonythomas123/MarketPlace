@@ -42,8 +42,22 @@ function OrderPage() {
         >
           {userOrders.map((detail, key) =>
             detail.items.map((item, key) => (
-              <Grid container sx={{ m: 1, justifyContent: "center" }}>
-                <OrderCard user={user} item={item} paymentDetails={detail.paymentDetails}/>
+              <Grid container mt={2}>
+                <Grid
+                  item
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <OrderCard
+                    user={user}
+                    item={item}
+                    paymentDetails={detail.paymentDetails}
+                  />
+                </Grid>
               </Grid>
             ))
           )}

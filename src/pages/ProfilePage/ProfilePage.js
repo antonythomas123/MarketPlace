@@ -30,26 +30,21 @@ function ProfilePage() {
     <Box>
       <CustomAppBar />
       <Grid container>
-        <Grid item sx={{ width: "40%" }}>
-          <Grid container justifyContent="center">
+        <Grid item xs={3} lg={1}>
+          <Grid container justifyContent="center" mt={2}>
             <Grid
               item
-              component={Paper}
+              xs={12}
               sx={{
                 display: "flex",
-                justifyContent: "flex-start",
+                flexDirection: "column",
+                borderBottom: "1px solid #999",
+                justifyContent: "center",
                 alignItems: "center",
-                m: 1,
-                p: 1,
-                borderRadius: "10px",
               }}
-              xs={8}
             >
               <Avatar />
               <Grid sx={{ p: 1 }}>
-                <Grid item>
-                  <Typography fontSize="14px">Hello,</Typography>
-                </Grid>
                 <Grid item>
                   <Typography>
                     {user.fname ? user.fname : ""}{" "}
@@ -58,45 +53,44 @@ function ProfilePage() {
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
 
-          <Grid
-            container
-            sx={{ mt: 1, display: "flex", justifyContent: "center" }}
-          >
-            <Grid
-              component={Paper}
-              item
-              xs={8}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                m: 1,
-                p: 1,
-                borderRadius: "10px",
-              }}
-            >
+            <Grid container>
               <Grid
                 item
-                sx={{ borderBottom: "1px solid #999" }}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: 1,
+                  borderBottom: "1px solid #222",
+                }}
                 onClick={handleOrderOpen}
               >
-                <Toolbar>
-                  <Typography>
-                    <LocalShippingIcon />
-                  </Typography>
-                  <Typography sx={{ ml: 1 }}>MY ORDERS</Typography>
-                </Toolbar>
+                <LocalShippingIcon />
+                <Typography fontSize={12} sx={{ ml: 1 }}>
+                  MY ORDERS
+                </Typography>
               </Grid>
+            </Grid>
 
-              <Grid item onClick={() => setToggle(false)}>
-                <Toolbar>
-                  <PersonIcon />
-                  <Typography sx={{ ml: 1 }}>ACCOUNT SETTINGS</Typography>
-                </Toolbar>
-                <Grid container flexDirection="column" ml={8}>
-                  <Typography>Profile Information</Typography>
-                </Grid>
+            <Grid container>
+              <Grid
+                item
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: 1,
+                  borderBottom: "1px solid #222",
+                }}
+                onClick={() => setToggle(false)}
+              >
+                <PersonIcon />
+                <Typography fontSize={12}>Profile</Typography>
               </Grid>
             </Grid>
           </Grid>
@@ -104,30 +98,38 @@ function ProfilePage() {
 
         <Grid
           item
+          xs={9}
+          lg={11}
           elevation={6}
           square
-          sx={{ width: "60%", height: "94vh" }}
+          sx={{ height: "94vh" }}
           component={Paper}
         >
           {toggle === false ? (
-            <Grid container justifyContent="center" flexDirection={'column'}>
+            <Grid container justifyContent="center" flexDirection={"column"}>
               <Grid item ml={2} mt={2}>
                 <Typography>Personal Information</Typography>
               </Grid>
               <Grid
                 item
-                sx={{ display: "flex", justifyContent: "space-evenly", mt: 2 }}
+                sx={{
+                  display: { xs: "grid", lg: "flex" },
+                  justifyContent: "space-evenly",
+                  placeItems: 'center',
+                  mt: 2,
+                }}
               >
                 <TextField
                   variant="outlined"
                   label={user.fname ? user.fname : ""}
                   disabled
-                ></TextField>
+                  sx={{mb: 2}}
+                />
                 <TextField
                   variant="outlined"
                   label={user.lname ? user.lname : ""}
                   disabled
-                ></TextField>
+                />
               </Grid>
               <Grid item ml={2} mt={2}>
                 <Typography>Your Gender</Typography>
@@ -176,7 +178,7 @@ function ProfilePage() {
               </Grid>
             </Grid>
           ) : (
-            <OrderPage/>
+            <OrderPage />
           )}
         </Grid>
       </Grid>

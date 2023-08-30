@@ -21,25 +21,37 @@ function OrderCard({ user, item, paymentDetails }) {
       component={Paper}
       width="80%"
       sx={{
-        height: "80px",
-        display: "flex",
+        display: { lg: "flex", xs: "block" },
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <Grid container justifyContent={"center"} alignItems={"center"} onClick={() => handleOrderClick()}>
-        <Grid item xs={3} ml={2}>
-          <img src={item.image} alt="product_image" height={"60px"} />
+      <Grid
+        container
+        justifyContent={"center"}
+        alignItems={"center"}
+        onClick={() => handleOrderClick()}
+      >
+        <Grid
+          item
+          mt={2}
+          xs={12}
+          display={'flex'}
+          justifyContent={"center"}
+          alignItems={"center"}
+          lg={3}
+        >
+          <img src={item.image} alt="product_image" height={"100px"} />
         </Grid>
-        <Grid item xs={3}>
-          <Typography sx={{ textTransform: "uppercase" }}>
+        <Grid item xs={12} lg={3}>
+          <Typography textAlign={'center'} sx={{ textTransform: "uppercase" }}>
             {item.title}
           </Typography>
         </Grid>
-        <Grid item xs={3} ml={2}>
+        <Grid item xs={12} lg={3} ml={2} textAlign={'center'}>
           Order Status
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={12} lg={2} textAlign={'center'}>
           $ {item.price}
         </Grid>
       </Grid>
