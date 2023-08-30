@@ -138,14 +138,6 @@ export default function CustomAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -182,6 +174,7 @@ export default function CustomAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={()=> navigate('/home')}
           >
             <StoreIcon/>
           </IconButton>
@@ -205,14 +198,8 @@ export default function CustomAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
               color="inherit"
               onClick={handleCartClick}
             >
