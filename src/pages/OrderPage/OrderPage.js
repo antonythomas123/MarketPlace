@@ -19,8 +19,8 @@ function OrderPage() {
     const orderedItemsCollection = getOrderedItemsCollection();
 
     if (ordersCollection && orderedItemsCollection) {
-      const orderForUser = ordersCollection.findOne({ userId : email });
-      setUserOrders(orderForUser.items);
+      const orderForUser = ordersCollection.findOne({ userId: email });
+      setUserOrders([orderForUser]);
     }
   }, []);
 
@@ -34,18 +34,19 @@ function OrderPage() {
           item
           xs={12}
           sx={{
-           
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          {userOrders.map((item, key) => (
-            <Grid container sx={{m: 1, justifyContent: "center"}} >
-              <OrderCard user={user} item={item} />
-            </Grid>
-          ))}
+          {userOrders.map((detail, key) =>
+            detail.items.map((item, key) => (
+              <Grid container sx={{ m: 1, justifyContent: "center" }}>
+                <OrderCard user={user} item={item} paymentDetails={detail.paymentDetails}/>
+              </Grid>
+            ))
+          )}
         </Grid>
       </Grid>
     </Box>

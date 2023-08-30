@@ -93,14 +93,13 @@ function OrderTracking() {
             </Grid>
 
             <Grid item xs={12} p={2}>
-              <Typography fontWeight={"bold"}>Antony Thomas</Typography>
-              <Typography>Address 1</Typography>
-              <Typography>Address 2</Typography>
-              <Typography>Address 3</Typography>
+              <Typography fontWeight={"bold"}>{selectedOrder.paymentDetails.fname} {selectedOrder.paymentDetails.lname}</Typography>
+              <Typography>{selectedOrder.paymentDetails.address}</Typography>
+              <Typography>{selectedOrder.paymentDetails.pincode}</Typography>
             </Grid>
             <Grid item xs={12} p={2}>
               <Typography fontWeight={"bold"}>Phone</Typography>
-              <Typography>098428783</Typography>
+              <Typography>{selectedOrder.paymentDetails.phone}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -117,7 +116,7 @@ function OrderTracking() {
             <Grid item sx={{ display: "flex" }}>
               <Grid height={100}>
                 <img
-                  src={selectedOrder.image}
+                  src={selectedOrder.items.image}
                   alt="image"
                   style={{
                     width: "100%",
@@ -130,9 +129,9 @@ function OrderTracking() {
                 <Typography fontSize="14px" fontWeight="bold">
                   {selectedOrder.title}
                 </Typography>
-                <Typography fontSize="12px">{selectedOrder.brand}</Typography>
+                <Typography fontSize="12px">{selectedOrder.items.brand}</Typography>
                 <Typography fontWeight="bold">
-                  $ {selectedOrder.price}
+                  $ {selectedOrder.items.price}
                 </Typography>
               </Grid>
             </Grid>

@@ -3,13 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { Grid, Box, Paper, Typography } from "@mui/material";
 import { useOrderContext } from "../../contexts/OrderContext";
 
-function OrderCard({ user, item }) {
+function OrderCard({ user, item, paymentDetails }) {
   const navigate = useNavigate();
 
   const { setSelectedOrder } = useOrderContext();
 
   const handleOrderClick = () => {
-    setSelectedOrder(item);
+    const combinedOrder = {
+      paymentDetails: paymentDetails,
+      items: item,
+    };
+    setSelectedOrder(combinedOrder);
     navigate("/orderTracking");
   };
   return (
