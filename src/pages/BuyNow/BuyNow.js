@@ -163,7 +163,7 @@ function BuyNow() {
                 height: "80px",
               }}
             >
-              <Typography>Antony Thomas</Typography>
+              <Typography textTransform={'uppercase'}>{user.fname} {user.lname}</Typography>
               <Button variant="outlined" endIcon={<DoneIcon />}>
                 Login
               </Button>
