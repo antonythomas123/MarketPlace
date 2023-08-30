@@ -115,12 +115,12 @@ export default function ProductPage() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CustomAppBar />
-      <Grid container sx={{ height: "100%" }}>
-        <Grid item sx={{ width: "50%" }}>
+      <Grid container>
+        <Grid item lg={6}>
           <Grid
             container
             sx={{
-              height: "100vh",
+              
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -151,11 +151,11 @@ export default function ProductPage() {
                     variant="outlined"
                     startIcon={<AddShoppingCartIcon />}
                     sx={{
-                      width: "50%",
                       m: 1,
                       background: "#ff9f00",
                       color: "white",
                       borderColor: "#ff9f00",
+                      display: { xs: 'none', sm: 'none' },
                     }}
                   >
                     Add to Cart
@@ -164,11 +164,11 @@ export default function ProductPage() {
                     variant="outlined"
                     startIcon={<FlashOnIcon />}
                     sx={{
-                      width: "50%",
                       m: 1,
                       background: "#fb641b",
                       color: "white",
                       borderColor: "#fb641b",
+                      display: { xs: 'none', sm: 'none' }
                     }}
                     onClick={() => navigate("/buynow")}
                   >
@@ -179,7 +179,7 @@ export default function ProductPage() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+        <Grid item xs={12} lg={6} component={Paper} elevation={6} square>
           <Grid
             container
             sx={{
@@ -226,14 +226,12 @@ export default function ProductPage() {
               </Typography>
             </Grid>
 
-            <Grid item xs={12}>
-              <Grid>
+            <Grid item xs={12} sx={{display: "flex"}}>  
                 <Button
                   onClick={addToCart}
                   variant="outlined"
                   startIcon={<AddShoppingCartIcon />}
                   sx={{
-                    width: "30%",
                     marginRight: "10px",
                     background: "#ff9f00",
                     color: "white",
@@ -246,7 +244,6 @@ export default function ProductPage() {
                   variant="outlined"
                   startIcon={<FlashOnIcon />}
                   sx={{
-                    width: "30%",
                     background: "#fb641b",
                     color: "white",
                     borderColor: "#fb641b",
@@ -255,7 +252,6 @@ export default function ProductPage() {
                 >
                   Buy Now
                 </Button>
-              </Grid>
             </Grid>
             <Grid item>
               <Typography>Product Description</Typography>
