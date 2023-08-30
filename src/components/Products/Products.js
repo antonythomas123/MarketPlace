@@ -6,19 +6,10 @@ import ProductCard from "../ProductCard/ProductCard";
 
 function Products({ category, products }) {
   return (
-    <div style={{ width: "90%", margin: "20px" }}>
-      <Paper>
+      <Paper sx={{width: "90%", mb: 2, p: 2}} >
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item sx={{ m: 3 }}>
             <Typography textTransform="uppercase">{category}</Typography>
-          </Grid>
-          <Grid item>
-            <Toolbar>
-              <Typography fontSize="12px">See All</Typography>
-              <IconButton>
-                <KeyboardDoubleArrowRightIcon />
-              </IconButton>
-            </Toolbar>
           </Grid>
           <div container sx={{ m: 2}} spacing={3} style={{ overflowX: 'auto', whiteSpace: 'nowrap' }} className="products">
             {products.map((product, key) => {
@@ -31,7 +22,6 @@ function Products({ category, products }) {
           </div>
         </Grid>
       </Paper>
-    </div>
   );
 }
 

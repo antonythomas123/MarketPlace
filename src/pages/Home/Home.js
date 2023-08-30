@@ -44,19 +44,18 @@ function Home() {
       <Grid container>
         {categories.map((category, key) => {
           return (
-            <section id={category}>
               <Grid
                 key={key}
                 item
-                sx={{ display: "flex", justifyContent: "center" }}
+                sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}
                 xs={12}
+                id={category}
               >
                 <Products
                   category={category}
                   products={categorizedProducts[category]}
                 />
               </Grid>
-            </section>
           );
         })}
       </Grid>
