@@ -40,8 +40,8 @@ function OrderPage() {
             alignItems: "center",
           }}
         >
-          {userOrders.map((detail, key) =>
-            detail.items.map((item, key) => (
+          {userOrders?.map((detail, key) =>
+            detail?.items?.map((item, key) => (
               <Grid container mt={2}>
                 <Grid
                   item

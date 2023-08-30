@@ -41,18 +41,18 @@ function OrderCard({ user, item, paymentDetails }) {
           alignItems={"center"}
           lg={3}
         >
-          <img src={item.image} alt="product_image" height={"100px"} />
+          <img src={item?.image} alt="product_image" height={"100px"} />
         </Grid>
         <Grid item xs={12} lg={3}>
           <Typography textAlign={'center'} sx={{ textTransform: "uppercase" }}>
-            {item.title}
+            {item?.title}
           </Typography>
         </Grid>
         <Grid item xs={12} lg={3} ml={2} textAlign={'center'}>
           Order Status
         </Grid>
         <Grid item xs={12} lg={2} textAlign={'center'}>
-          $ {item.price}
+          $ {item?.price}
         </Grid>
       </Grid>
     </Box>
