@@ -199,8 +199,8 @@ function OrderTracking() {
               activeStep={currentStep}
               connector={<QontoConnector />}
             >
-              {steps.map((label) => (
-                <Step key={label}>
+              {steps.map((label, key) => (
+                <Step key={key}>
                   <StepLabel StepIconComponent={QontoStepIcon}>
                     {label}
                   </StepLabel>
