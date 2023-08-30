@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { getUsersCollection } from "../../services/database";
 import { useUserContext } from "../../contexts/UserContext";
+import Poster from '../../assets/poster.jpg';
 
 const defaultTheme = createTheme();
 
@@ -90,14 +91,13 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
+            background: `url(${Poster})`,
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
                 ? t.palette.grey[50]
                 : t.palette.grey[900],
-            backgroundSize: "cover",
+            backgroundSize: "contain",
             backgroundPosition: "center",
           }}
         />
@@ -154,10 +154,6 @@ export default function SignInSide() {
                     password: e.target.value,
                   }));
                 }}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
               />
               <Button
                 type="submit"
