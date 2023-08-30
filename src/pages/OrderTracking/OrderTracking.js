@@ -10,7 +10,10 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Check from "@mui/icons-material/Check";
 import { useOrderContext } from "../../contexts/OrderContext";
-import { getOrderedItemsCollection, updateOrderedItemStatus } from "../../services/database";
+import {
+  getOrderedItemsCollection,
+  updateOrderedItemStatus,
+} from "../../services/database";
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -138,22 +141,38 @@ function OrderTracking() {
           component={Paper}
           p={2}
           mt={4}
-          sx={{ display: "flex" }}
+          sx={{
+            display: { xs: "block", lg: "flex" },
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <Grid container sx={{ width: "40%", borderRight: "1px solid #222" }}>
-            <Grid item sx={{ display: "flex" }}>
-              <Grid height={100}>
-                <img
-                  src={selectedOrder.items.image}
-                  alt="image"
-                  style={{
-                    width: "100%",
-                    height: "120px",
-                    objectFit: "contain",
-                  }}
-                />
-              </Grid>
-              <Grid sx={{ display: "flex", flexDirection: "column", ml: 2 }}>
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+              lg={4}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              <img
+                src={selectedOrder.items.image}
+                alt="image"
+                style={{
+                  width: "100%",
+                  height: "120px",
+                  objectFit: "contain",
+                }}
+              />
+              <Grid
+                item
+                xs={12}
+                lg={8}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
                 <Typography fontSize="14px" fontWeight="bold">
                   {selectedOrder.title}
                 </Typography>
@@ -170,10 +189,10 @@ function OrderTracking() {
           <Grid
             container
             sx={{
-              width: "60%",
               justifyContent: "center",
               alignItems: "center",
             }}
+            mt={2}
           >
             <Stepper
               alternativeLabel
