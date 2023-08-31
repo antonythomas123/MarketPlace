@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import { useStateValue } from "../../contexts/StateProvider";
 import { useUserContext } from "../../contexts/UserContext";
 
-function CartCard({ title, stock, image, id, actions }) {
+function CartCard({ title, stock, image, id, actions, price }) {
   const [dispatch] = useStateValue();
   const { user } = useUserContext();
 
@@ -17,53 +17,61 @@ function CartCard({ title, stock, image, id, actions }) {
         },
         email: user.email,
       });
-    }else{
+    } else {
       dispatch({
         type: "REMOVE_FROM_BUY_NOW",
         item: {
           id: id,
         },
-        email: user.email
-      })
+        email: user.email,
+      });
     }
   };
   return (
-    <Grid item sx={{ width: "100%" }} component={Paper}>
-      <Grid container justifyContent="center" alignItems="center">
+    <Grid
+      container
+      component={Paper}
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Grid
+        item
+        sx={{ display: "flex", flexDirection: { lg: "row", xs: "column" } }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <img src={image} alt="product_image" style={{ height: "140px" }} />
+      </Grid>
+
+      <Grid
+        item
+        xs={12}
+        lg={8}
+        sx={{
+          paddingLeft: { xs: 0, lg: 4 },
+        }}
+      >
         <Grid
-          item
-          sx={{ display: "flex", flexDirection: "row" }}
-          justifyContent="center"
-          alignItems="center"
+          container
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
         >
-          <Grid mr={4}>
-            <img src={image} alt="product_image" style={{ height: "140px" }} />
-          </Grid>
-          <Grid container flexDirection="column">
+          <Grid item>
             <Typography>{title}</Typography>
+          </Grid>
+          <Grid item>
+            <Typography>$ {price}</Typography>
+          </Grid>
+          <Grid item>
             <Typography>Stock : {stock}</Typography>
-            <Grid
-              container
-              sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              {/* <Grid item>
-                <Button variant="outlined">Save for Later</Button>
-              </Grid> */}
-              <Grid item>
-                <Button
-                  variant="outlined"
-                  onClick={() => handleRemoveFromCart()}
-                >
-                  Remove
-                </Button>
-              </Grid>
-            </Grid>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item m={1}>
+        <Button variant="outlined" onClick={() => handleRemoveFromCart()}>
+          Remove
+        </Button>
       </Grid>
     </Grid>
   );

@@ -229,22 +229,23 @@ function BuyNow() {
           )}
 
           {directBuyNowProduct.length > 0 ? (
-            <Grid container component={Paper} xs={6} m={2}>
+            <Grid container m={2}>
               <Grid
-                item
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  width: "100%",
-                  paddingLeft: "12px",
-                }}
-              >
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                paddingLeft: "12px",
+                m: 2,
+              }}
+            >
                 {directBuyNowProduct.map((item) => (
                   <CartCard
                     price={item.price}
-                    title={item.price}
+                    title={item.title}
                     stock={item.stock}
                     rating={item.rating}
                     image={item.image}
