@@ -40,7 +40,7 @@ export default function ProductPage() {
     stock,
     title,
   } = location.state;
-  const [dispatch] = useStateValue();
+  const [{basket},dispatch] = useStateValue();
 
   const { user } = useUserContext();
 

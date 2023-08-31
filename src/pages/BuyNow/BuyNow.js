@@ -271,9 +271,10 @@ function BuyNow() {
             " "
           )}
 
-          <Grid container component={Paper} xs={6} m={2}>
+          <Grid container m={2}>
             <Grid
               item
+              xs={12}
               sx={{
                 display: "flex",
                 justifyContent: "center",
