@@ -5,7 +5,7 @@ import { useStateValue } from "../../contexts/StateProvider";
 import { useUserContext } from "../../contexts/UserContext";
 
 function CartCard({ title, stock, image, id, actions, price }) {
-  const [dispatch] = useStateValue();
+  const [{ basket }, dispatch] = useStateValue();
   const { user } = useUserContext();
 
   const handleRemoveFromCart = () => {

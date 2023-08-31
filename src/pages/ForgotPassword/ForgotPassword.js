@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { Snackbar } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import Poster from '../../assets/poster.jpg'
 
 const defaultTheme = createTheme();
 
@@ -76,13 +77,13 @@ export default function ForgotPassword() {
           md={7}
           sx={{
             backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
+            `url(${Poster})`,
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
                 ? t.palette.grey[50]
                 : t.palette.grey[900],
-            backgroundSize: "cover",
+            backgroundSize: "contain",
             backgroundPosition: "center",
           }}
         />

@@ -119,7 +119,7 @@ export default function ProductPage() {
           <Grid
             container
             sx={{
-              
+              height: "100%",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -154,7 +154,7 @@ export default function ProductPage() {
                       background: "#ff9f00",
                       color: "white",
                       borderColor: "#ff9f00",
-                      display: { xs: 'none', sm: 'none' },
+                      display: { xs: 'none', sm: 'none', lg: 'flex' },
                     }}
                   >
                     Add to Cart
@@ -167,7 +167,7 @@ export default function ProductPage() {
                       background: "#fb641b",
                       color: "white",
                       borderColor: "#fb641b",
-                      display: { xs: 'none', sm: 'none' }
+                      display: { xs: 'none', sm: 'none', lg: 'flex' }
                     }}
                     onClick={() => navigate("/buynow")}
                   >

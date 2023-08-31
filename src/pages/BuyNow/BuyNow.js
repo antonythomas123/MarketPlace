@@ -1,13 +1,6 @@
 import React, { useContext, useState } from "react";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
-import {
-  Grid,
-  Paper,
-  Typography,
-  Button,
-  Box,
-  Snackbar,
-} from "@mui/material";
+import { Grid, Paper, Typography, Button, Box, Snackbar } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import BuyNowForm from "../../components/BuyNowForm/BuyNowForm";
 import PaymentCard from "../../components/PaymentCard/PaymentCard";
@@ -70,7 +63,7 @@ function BuyNow() {
       paymentDetails.pincode === ""
     ) {
       setMessage("Please Enter all Delivery Details");
-      setOpen(true)
+      setOpen(true);
     } else if (
       cardDetails.number === "" ||
       cardDetails.name === "" ||
@@ -78,7 +71,7 @@ function BuyNow() {
       cardDetails.cvc === ""
     ) {
       setMessage("Please Enter Card Details");
-      setOpen(true)
+      setOpen(true);
     } else {
       const order = {
         userId: user.email,
@@ -150,34 +143,50 @@ function BuyNow() {
             alignItems: "center",
           }}
         >
-          <Grid container component={Paper} xs={6} m={2}>
+          <Grid container m={2}>
             <Grid
               item
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "center",
                 alignItems: "center",
                 width: "100%",
                 padding: "12px",
                 height: "80px",
               }}
             >
-              <Typography textTransform={'uppercase'}>{user.fname} {user.lname}</Typography>
-              <Button variant="outlined" endIcon={<DoneIcon />}>
-                Login
-              </Button>
+              <Grid
+                container
+                component={Paper}
+                justifyContent="space-between"
+                alignItems="center"
+                p={2}
+              >
+                <Grid item>
+                  <Typography textTransform={"uppercase"}>
+                    {user.fname} {user.lname}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Button variant="outlined" endIcon={<DoneIcon />}>
+                    Login
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
 
-          <Grid container component={Paper} xs={6} m={2}>
+          <Grid container m={2}>
             <Grid
               item
+              xs={12}
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "center",
                 alignItems: "center",
                 width: "100%",
                 paddingLeft: "12px",
+                m: 2,
               }}
             >
               <BuyNowForm
@@ -188,9 +197,10 @@ function BuyNow() {
           </Grid>
 
           {isCart && basket.length > 0 ? (
-            <Grid container component={Paper} xs={6} m={2}>
+            <Grid container m={2}>
               <Grid
                 item
+                xs={12}
                 sx={{
                   display: "flex",
                   justifyContent: "center",
@@ -231,17 +241,17 @@ function BuyNow() {
           {directBuyNowProduct.length > 0 ? (
             <Grid container m={2}>
               <Grid
-              item
-              xs={12}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                paddingLeft: "12px",
-                m: 2,
-              }}
-            >
+                item
+                xs={12}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  paddingLeft: "12px",
+                  m: 2,
+                }}
+              >
                 {directBuyNowProduct.map((item) => (
                   <CartCard
                     price={item.price}

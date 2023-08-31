@@ -31,8 +31,9 @@ function Cart() {
           justifyContent: "center",
           alignItems: "center",
         }}
+        mt={4}
       >
-        <Grid item width="50%">
+        <Grid item xs={12} md={6} width="50%">
           {basket.map((item) => {
             return (
               <CartCard
@@ -48,10 +49,10 @@ function Cart() {
           })}
         </Grid>
 
-        <Grid item xs={5} justifyContent="center" alignItems="center">
+        <Grid item xs={12} md={5} lg={5}>
           <Grid
             container
-            sx={{ height: "90vh" }}
+            sx={{ height: {lg: "90vh", xs: "50vh"} }}
             justifyContent="center"
             alignItems="center"
           >
