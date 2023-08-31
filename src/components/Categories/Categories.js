@@ -2,12 +2,10 @@ import React from "react";
 import "./Categories.css";
 import { Grid, Typography } from "@mui/material";
 import * as Scroll from "react-scroll";
-import { Link, useLocation } from "react-router-dom";
 
 const ScrollLink = Scroll.Link;
 
 function Categories({ products }) {
-  const location = useLocation();
 
   const categoryImageMap = {};
 

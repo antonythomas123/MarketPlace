@@ -6,7 +6,6 @@ import {
   Typography,
   Button,
   Box,
-  FormControl,
   Snackbar,
 } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
@@ -46,7 +45,7 @@ function BuyNow() {
 
   const navigate = useNavigate();
 
-  const [{ basket, directBuyNowProduct }, dispatch] = useStateValue();
+  const [{ basket, directBuyNowProduct }] = useStateValue();
   const { isCart } = useContext(CartContext);
   const totalPrice = getBasketTotal(basket);
   const buyNowPrice = getBuyNowTotal(directBuyNowProduct);

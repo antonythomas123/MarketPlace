@@ -22,7 +22,7 @@ function OrderPage() {
       const orderForUser = ordersCollection.findOne({ userId: email });
       setUserOrders([orderForUser]);
     }
-  }, []);
+  }, [email]);
 
   return (
     <Box>

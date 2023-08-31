@@ -1,5 +1,5 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
-import { Box, height } from "@mui/system";
+import { Box } from "@mui/system";
 import React, { useContext } from "react";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import CartCard from "../../components/CartCard/CartCard";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 import CartContext from "../../contexts/CartContext";
 
 function Cart() {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket }] = useStateValue();
 
   const totalPrice = getBasketTotal(basket);
 

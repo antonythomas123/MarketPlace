@@ -10,10 +10,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Check from "@mui/icons-material/Check";
 import { useOrderContext } from "../../contexts/OrderContext";
-import {
-  getOrderedItemsCollection,
-  updateOrderedItemStatus,
-} from "../../services/database";
+import { updateOrderedItemStatus } from "../../services/database";
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -156,7 +153,7 @@ function OrderTracking() {
             >
               <img
                 src={selectedOrder.items.image}
-                alt="image"
+                alt="product_image"
                 style={{
                   width: "100%",
                   height: "120px",

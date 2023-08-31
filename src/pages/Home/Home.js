@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import CustomAppBar from "../../components/CustomAppBar/CustomAppBar";
 import Categories from "../../components/Categories/Categories";
 import { fetchProducts } from "../../services/fetchProducts";
@@ -13,7 +13,7 @@ function Home() {
 
   const {setIsCart} = useContext(CartContext);
 
-  const getProductCategories = async () => {
+  const getProductCategories = useCallback(async () => {
     try {
       const fetchedProducts = await fetchProducts();
       const productCategories = await fetchProducCategories();
@@ -23,7 +23,7 @@ function Home() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [setIsCart])
 
   const categorizedProducts = {};
 
@@ -36,7 +36,7 @@ function Home() {
   useEffect(() => {
     getProductCategories();
     // window.scrollTo(0, 0);
-  }, []);
+  }, [getProductCategories]);
   return (
     <div>
       <CustomAppBar />

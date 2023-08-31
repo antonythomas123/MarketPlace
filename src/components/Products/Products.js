@@ -1,7 +1,6 @@
 import React from "react";
 import "./Products.css"
-import { Grid, IconButton, Paper, Toolbar, Typography } from "@mui/material";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { Grid, Paper, Typography } from "@mui/material";
 import ProductCard from "../ProductCard/ProductCard";
 
 function Products({ category, products }) {

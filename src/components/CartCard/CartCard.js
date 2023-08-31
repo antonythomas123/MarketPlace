@@ -1,11 +1,11 @@
 import { Grid, Paper, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import { useStateValue } from "../../contexts/StateProvider";
 import { useUserContext } from "../../contexts/UserContext";
 
-function CartCard({ price, title, stock, rating, image, id, actions }) {
-  const [basket, dispatch] = useStateValue();
+function CartCard({ title, stock, image, id, actions }) {
+  const [dispatch] = useStateValue();
   const { user } = useUserContext();
 
   const handleRemoveFromCart = () => {
@@ -37,7 +37,7 @@ function CartCard({ price, title, stock, rating, image, id, actions }) {
           alignItems="center"
         >
           <Grid mr={4}>
-            <img src={image} alt="image" style={{ height: "140px" }} />
+            <img src={image} alt="product_image" style={{ height: "140px" }} />
           </Grid>
           <Grid container flexDirection="column">
             <Typography>{title}</Typography>

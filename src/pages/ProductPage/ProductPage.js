@@ -31,7 +31,6 @@ export default function ProductPage() {
 
   const {
     brand,
-    category,
     description,
     discountPercentage,
     id,
@@ -41,7 +40,7 @@ export default function ProductPage() {
     stock,
     title,
   } = location.state;
-  const [{basket, directBuyNowProduct}, dispatch] = useStateValue();
+  const [dispatch] = useStateValue();
 
   const { user } = useUserContext();
 
